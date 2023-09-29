@@ -1,0 +1,37 @@
+
+
+.red{
+    background-color: rgb(238, 131, 109);
+    font-family: Verdana, "DejaVu Sans", sans-serif;
+}
+
+
+#blue {
+    color: blue;
+    font-size: 36px;
+}
+
+.big {
+    font-size: 24px;
+}
+
+#green {
+    background-color: greenyellow;
+    font-weight: bold;
+}
+
+.dotted {
+    border-style: dotted;
+    border-color: black;
+    border-width: 3px;
+}
+
+#fancy {
+    font-family: "Amatic SC", sans-serif;
+    font-size: 48px;
+    border-color: pink;
+}
+
+.pad {
+    padding-bottom: .2cm;
+}
