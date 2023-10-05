@@ -1,0 +1,35 @@
+*{
+    font-size: 28px;
+    font-family: Helvetica, "Times New Roman", sans-serif;
+}
+.black-button{
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 36px;
+    transition-duration: 0.2s;
+}
+
+.black-button:hover{
+    background-color: rgb(74, 74, 74);
+}
+
+.black-button:active{
+    color: greenyellow;
+}
+
+.yellow-button{
+    background-color: yellow;
+    color: black;
+    text-align: center;
+    font-size: 36px;
+    transition-duration: 0.2s;
+}
+
+.yellow-button:hover{
+    background-color: rgb(226, 226, 123);
+}
+
+.yellow-button:active{
+    font-size: 48px;
+}
