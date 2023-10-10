@@ -13,17 +13,14 @@ body {
 .title {
   background: #e3f4ff;
   padding: 8px;
-  margin: 8px auto;
   font-size: 16px;
-  margin-top: 0px;
+  margin: 0px;
 }
 
 .content {
   background: #e3f4ff;
   margin: 8px auto;
-  padding: 8px;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 16px 8px;
 }
 
 .button-container {
@@ -31,7 +28,6 @@ body {
   text-align: center;
   margin: 8px auto;
   padding: 8px;
-  align-items: center;
   margin-bottom: 0px;
 }
 
@@ -39,8 +35,6 @@ button {
   background: white;
   border: 1px solid #eee;
   display: block;
-  margin-left: 125px;
-  padding: 8px;
-  padding-left: 24px;
-  padding-right: 24px;
+  margin: auto;
+  padding: 8px 24px;
 }
