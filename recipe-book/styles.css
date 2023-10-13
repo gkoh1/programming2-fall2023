@@ -1,0 +1,48 @@
+* {
+    text-align: center;
+    list-style-position: inside;
+}
+
+.Button-Text {
+    color: black;
+    text-decoration: none;
+}
+
+.Recipe-Button {
+    display: block;
+    font-size: 30px;
+    margin: 10px auto;
+    margin-bottom: 0px;
+}
+
+.Homepage-Recipe {
+    background-color: #bbbe64;
+    margin: 50px auto;
+    padding: 50px;
+    width: 75%;
+}
+
+.Homepage-Image {
+    width: 600px;
+}
+
+#Homepage {
+    background-color: #90f1ef;
+}
+
+#Home-Header {
+    background-color: #f93943;
+    margin: 0px;
+    padding: 20px;
+}
+
+body {
+    margin: 0px;
+}
+
+/* bbbe64 - citron
+01295f - royal blue
+f93943 - imperial red
+90f1ef - ice blue
+a491d3 - lavender */
+
