@@ -1,0 +1,55 @@
+.Item {
+	height: 150px;
+	width: 200px;
+	background-color: green;
+	border: blue 3px solid;
+	text-align: center;
+	margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#Footer {
+    background-color: blue;
+    width: auto;
+    height: 20px;
+}
+
+.Subitem-1 {
+    flex-grow: 7;
+    /* height: 50px; */
+	width: 150px;
+    margin: 10px auto;
+	background-color: red;
+	border: yellow 3px solid;
+}
+
+.Subitem-2 {
+    flex-grow: 2;
+    /* height: 500px; */
+	width: 150px;
+    margin: 10px auto;
+	background-color: black;
+	border: white 3px solid;
+}
+
+.Row {
+    display: flex;
+    border: black 3px solid;
+    justify-content: space-evenly;
+}
+
+#Whole-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: red 5px dotted;
+    height: 100vh;
+}
+
+#Content-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
