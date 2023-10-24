@@ -2,10 +2,10 @@
 	flex: 10;
 	background-color: green;
 	border: blue 3px solid;
-	margin: 10px;
     display: flex;
-    text-align: center;
+    align-items: center;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 #Footer {
@@ -34,6 +34,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
+    width: 100vw;
 }
 
 #Array-Container {
@@ -48,4 +49,28 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.Small-photo {
+    height: 150px;
+    width: auto;
+}
+
+.Name {
+    flex: 1;
+}
+
+#Big-photo {
+    flex: 5;
+    border: black 2px dashed;
+}
+
+#Big-name {
+    flex: 1;
+    border: black 2px dashed;
+}
+
+#Description {
+    flex: 3;
+    border: black 2px dashed;
 }
