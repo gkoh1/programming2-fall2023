@@ -2,6 +2,61 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.header {
+    background: blue;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    padding: 8px auto;
+    display: flex;
+    justify-content:  space-between;
+    align-items: center;
+  }
+  
+  .header-part {
+    display: flex;
+  }
+  
+  .profile-image {
+    background: orange;
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,.5);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    margin: 16px;
+  }
+  
+  .logo {
+    color: white;
+    font-size: 32px;
+    font-weight: 900;
+    font-style: italic;
+    margin: 16px;
+  }
+  
+  button {
+    border: none;
+    border-radius: 8px;
+    background: orange;
+    color: white;
+    padding: 8px 24px;
+    margin: 16px;
+  }
+  
+  a {
+    /* this removes the line under our links */
+    text-decoration: none;
+    color: white;
+  }
+  
+  ul {
+    list-style-type: none;
+    display: flex;
+  }
+
+  li {
+    margin: 16px;
+  }
+
 .item {
 	width: 250px;
     height: 200px;
@@ -14,6 +69,9 @@
 #footer {
     flex: 1;
     background-color: blue;
+    color: white;
+    padding: 8px;
+    text-align: center;
 }
 
 .row {
