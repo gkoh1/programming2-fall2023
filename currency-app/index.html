@@ -7,15 +7,41 @@
 	<title>Currency Converter</title>
 </head>
 <body>
-    <div class="bluered">Entered value of USD: <span id="USD"> </span></div>
+    <!-- <div class="bluered">Value in USD: <span id="USD"> </span></div>
     <div class="redwhite">Value in CAD: <span id="CAD"> </span></div>
     <div id="EUBox">Value in EUR: <span id="EUR"> </span></div>        
     <div class="redwhite">Value in CHF: <span id="CHF"> </span></div>
     <div class="bluered">Value in GBP: <span id="GBP"> </span></div>
-    <div class="redwhite">Value in JPY: <span id="JPY"> </span></div>
-    <div><input type="text" name="Input a value of USD" id="initialVal"></div>
-    <button id="enterButton"> Calculate </button>
-	<script type="text/javascript" src="script.js"></script>
+    <div class="redwhite">Value in JPY: <span id="JPY"> </span></div> -->
+    <div>
+        How much initial currency do you have? <input type="number" name="Input a value of the currency" id="initialVal"> 
+        <span class="dropdown">
+            What is your original currency? <select name="original" id="originalCurrency">
+                <option value="Placeholder"> Choose a currency </option>
+                <option value="USD"> USD </option>
+                <option value="CAD"> CAD </option>
+                <option value="EUR"> EUR </option>
+                <option value="CHF"> CHF </option>
+                <option value="GBP"> GBP </option>
+                <option value="JPY"> JPY </option>
+            </select>
+        </span> 
+        <span class="dropdown">
+            What is your desired currency? <select name="original" id="newCurrency">
+                <option value="Placeholder"> Choose a currency </option>
+                <option value="USD"> USD </option>
+                <option value="CAD"> CAD </option>
+                <option value="EUR"> EUR </option>
+                <option value="CHF"> CHF </option>
+                <option value="GBP"> GBP </option>
+                <option value="JPY"> JPY </option>
+            </select>
+        </span>
+        <button id="enterButton" onclick="calculate()"> Calculate </button>
+    </div>
+    <div id="calculation-display">
 
+    </div>
+	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

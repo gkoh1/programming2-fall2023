@@ -28,7 +28,12 @@ input {
 }
 
 button {
+    display: inline;
     width: 100px;
     height: 25px;
     margin: 10px;
+}
+
+.dropdown {
+    margin: 5px;
 }
