@@ -19,10 +19,10 @@
                 <div class="small-header">
                     <h3> Player </h3>
                 </div>
-                <div class="small-header">
-                    <h3> Total: 24 - bust </h3>
+                <div class="small-header" >
+                    <h3 id="player-score"> Total: 24 - bust </h3>
                 </div>
-                <div class="cards">
+                <div class="cards" id = "player-cards">
                     <img src="images/4C.webp" alt="4 of clubs">                 
                     <img src="images/JH.webp" alt="Jack of hearts">
                     <img src="images/QD.webp" alt="Queen of diamonds">
@@ -34,10 +34,10 @@
                 <div class="small-header">
                     <h3>Dealer</h3>
                 </div>
-                <div class="small-header">
-                    <h3> Total: 20 </h3>
+                <div class="small-header" >
+                    <h3 id="dealer-score"> Total: 20 </h3>
                 </div>
-                <div class="cards">
+                <div class="cards" id = "dealer-cards">
                     <img src="images/3S.webp" alt="3 of spades">
                     <img src="images/10H.webp" alt="10 of hearts">
                     <img src="images/7H.webp" alt="7 of hearts">
@@ -45,16 +45,17 @@
             </div>
         </div>
         <div id="actions">
-            <button>
+            <button onclick="hitClicked()">
                 Hit
             </button>
-            <button>
+            <button onclick="dealerTurn()">
                 Stand
             </button>
-            <button>
+            <button onclick="reset()">
                 Reset
             </button>
         </div>
    </div>
+   <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
