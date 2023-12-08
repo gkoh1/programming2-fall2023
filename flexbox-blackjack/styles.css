@@ -3,6 +3,17 @@
     color: white;
 }
 
+#title-page {
+    background-color: black;
+    height: 90vh;
+    width: 90vw;
+    padding: 5vh 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 #page {
     display: flex;
     flex-direction: column;
@@ -80,6 +91,32 @@ button {
     padding: 20px 50px;
     color: black;
     font-size: 15px;
+}
 
+#play-button {
+    display: inline;
+    padding: 0px 5px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+input {
+    display: inline;
+    color: black;
+}
+
+#win-tracker {
+    background-color: black;
+    display: flex;
+    padding: 1vh 5vw;
+    justify-content: space-between;
+}
+
+.win-box {
+    background-color: black;
+    flex: 1;
 }
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Grant's Casino: Blackjack</title>
+</head>
+<body>
+    <div id="page">
+        <div id="big-header">
+            <h1> Blackjack with Grant </h1>
+        </div>
+        <div id="game-state-banner">
+            <h3 id ="message-box">Click Reset to begin the game. </h3>
+        </div>
+        <div id="game">
+            <div class="player-container">
+                <div class="small-header">
+                    <h3> Player </h3>
+                </div>
+                <div class="small-header" >
+                    <h3 id="player-score">  </h3>
+                </div>
+                <div class="cards" id = "player-cards">
+
+                </div>
+            </div>
+            <div id="divider">
+            </div>
+            <div class="player-container">
+                <div class="small-header">
+                    <h3>Dealer</h3>
+                </div>
+                <div class="small-header" >
+                    <h3 id="dealer-score">  </h3>
+                </div>
+                <div class="cards" id = "dealer-cards">
+
+                </div>
+            </div>
+        </div>
+        <div id="actions">
+            <button onclick="hitClicked()">
+                Hit
+            </button>
+            <button onclick="dealerTurn()">
+                Stand
+            </button>
+            <button onclick="reset()">
+                Reset
+            </button>
+        </div>
+        <div id="win-tracker">
+            <div>
+                You've won <span id="user-wins">0</span> games
+            </div>
+            <div>
+                The dealer has won <span id="dealer-wins">0</span> games
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

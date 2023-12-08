@@ -7,55 +7,26 @@
     <title>Grant's Casino: Blackjack</title>
 </head>
 <body>
-   <div id="page">
-        <div id="big-header">
-            <h1> Blackjack with Grant </h1>
+    <div id="title-page">
+        <p>
+            Welcome to Grant's Casino! With our notriously petulant dealers and sketchy UI choices, we're sure that once you start playing, you'll never want to stop!
+        </p>
+        <p>
+            So, you want to play Blackjack, huh? Well, in case you need a reminder, here are the rules:
+        </p>
+        <ul>
+            <li> You start with two cards, hit draws another card</li>
+            <li> The dealer starts with two cards, one face down.</li>
+            <li> Once you stand, the dealer hits until their score is at least 17</li>
+            <li> Highest score under 22 wins. Dealer wins ties unless both players get 21, in which case it is a tie.</li>
+            <li> If you go over 21 (bust), you lose and the dealer doesn't play.</li>
+            <li> After the game is over, click reset to play again (you have no other choice . . .)</li>
+        </ul>
+        <div>
+        How many decks do you want to play with? <input type="number" name="Input a number of decks" id="numDecks"> 
+        <button id='play-button'><a href="game.html" onclick="initialize()"> Play!</a> </button>
         </div>
-        <div id="game-state-banner">
-            <h2>Game State: Dealer wins :( </h1>
-        </div>
-        <div id="game">
-            <div class="player-container">
-                <div class="small-header">
-                    <h3> Player </h3>
-                </div>
-                <div class="small-header" >
-                    <h3 id="player-score"> Total: 24 - bust </h3>
-                </div>
-                <div class="cards" id = "player-cards">
-                    <img src="images/4C.webp" alt="4 of clubs">                 
-                    <img src="images/JH.webp" alt="Jack of hearts">
-                    <img src="images/QD.webp" alt="Queen of diamonds">
-                </div>
-            </div>
-            <div id="divider">
-            </div>
-            <div class="player-container">
-                <div class="small-header">
-                    <h3>Dealer</h3>
-                </div>
-                <div class="small-header" >
-                    <h3 id="dealer-score"> Total: 20 </h3>
-                </div>
-                <div class="cards" id = "dealer-cards">
-                    <img src="images/3S.webp" alt="3 of spades">
-                    <img src="images/10H.webp" alt="10 of hearts">
-                    <img src="images/7H.webp" alt="7 of hearts">
-                </div>
-            </div>
-        </div>
-        <div id="actions">
-            <button onclick="hitClicked()">
-                Hit
-            </button>
-            <button onclick="dealerTurn()">
-                Stand
-            </button>
-            <button onclick="reset()">
-                Reset
-            </button>
-        </div>
-   </div>
-   <script type="text/javascript" src="script.js"></script>
+    </div>
+    <script type="text/javascript" src="initializer.js" ></script>
 </body>
 </html>
