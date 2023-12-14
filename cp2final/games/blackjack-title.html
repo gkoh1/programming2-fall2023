@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <title>Grant's Casino: Blackjack</title>
+</head>
+<body>
+    <div id="title-page">
+        <p>
+            Welcome to Grant's Casino! With our notriously petulant dealers and sketchy UI choices, we're sure that once you start playing, you'll never want to stop!
+        </p>
+        <p>
+            So, you want to play Blackjack, huh? Well, in case you need a reminder, here are the rules:
+        </p>
+        <ul>
+            <li> You start with two cards, hit draws another card</li>
+            <li> The dealer starts with two cards, one face down.</li>
+            <li> Once you stand, the dealer hits until their score is at least 17</li>
+            <li> Highest score under 22 wins. Dealer wins ties unless both players get 21, in which case it is a tie.</li>
+            <li> If you go over 21 (bust), you lose and the dealer doesn't play.</li>
+            <li> After the game is over, click reset to play again (you have no other choice . . .)</li>
+        </ul>
+        <div>
+        How many decks do you want to play with? <input type="number" name="Input a number of decks" id="numDecks"> 
+        <button id='play-button'><a href="blackjack.html" onclick="initialize()"> Play!</a> </button>
+        </div>
+    </div>
+    <script type="text/javascript" src="../blackjack.js" ></script>
+</body>
+</html>

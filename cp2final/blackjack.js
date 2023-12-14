@@ -1,25 +1,10 @@
-let messageBox = document.getElementById("message-box");
-let userTurn = false;
-let canStand = false;
-let numDecks = 1;
-let deck = [];
-// The user and dealer are objects with the same properties so functions can be shared between them.
-let user = {
-    CARDBOX: document.getElementById("player-cards"),
-    SCOREBOX: document.getElementById("player-score"),
-    WINBOX: document.getElementById("user-wins"),
-    SCORE: 0,
-    CARDS: [],
-    GAMESWON: 0
-}
-let dealer = {
-    CARDBOX: document.getElementById("dealer-cards"),
-    SCOREBOX: document.getElementById("dealer-score"),
-    WINBOX: document.getElementById("dealer-wins"),
-    SCORE: 0,
-    CARDS: [],
-    GAMESWON: 0
-}
+let messageBox;
+let userTurn;
+let canStand;
+let numDecks;
+let deck;
+let users;
+let dealer;
 const cardTypes = {
     A: 11, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, J: 10, Q: 10, K: 10
 }
@@ -37,7 +22,7 @@ function makeSuitDeck(suit) {
         suitDeck.push({ 
             VALUE: cardTypes[value], 
             NAME: value + suit, 
-            IMAGEID: "blackjack-cards/"+value+suit+".svg"});
+            IMAGEID: "../blackjack-cards/"+value+suit+".svg"});
     }
     return suitDeck
 }
@@ -78,7 +63,6 @@ if(parseInt(localStorage["deckCount"])){
 deck = makeDeck();
 reset();
 
-
 function updateScore(player, newScore){
     player.SCORE = newScore;
     player.SCOREBOX.innerText = newScore;
@@ -118,30 +102,53 @@ function drawCard(player){
 }
 
 function reset() {
-    updateScore(user, 0);
+    messageBox = document.getElementById("message-box");
+    userTurn = false;
+    canStand = false;
+    numDecks = 1;
+// The user and dealer are objects with the same properties so functions can be shared between them.
+    users = [{
+    CARDBOX: document.getElementById("player-cards"),
+    SCOREBOX: document.getElementById("player-score"),
+    WINBOX: document.getElementById("user-wins"),
+    SCORE: 0,
+    CARDS: [],
+    GAMESWON: 0
+}]
+    dealer = {
+    CARDBOX: document.getElementById("dealer-cards"),
+    SCOREBOX: document.getElementById("dealer-score"),
+    WINBOX: document.getElementById("dealer-wins"),
+    SCORE: 0,
+    CARDS: [],
+    GAMESWON: 0
+}
+    updateScore(users[0], 0);
     updateScore(dealer, 0);
-    resetCards(user);
+    resetCards(users[0]);
     resetCards(dealer)
     userTurn = true;
     canStand = true;
     messageBox.innerText = "Take your turn";
     if (deck.length < 30) {
+        console.log(deck)
         alert("Don't go around trying to count cards with me, silly. I'm reshuffling the deck!");
         deck = makeDeck();
     }
-    drawCard(user);
-    drawCard(user);
+    drawCard(users[0]);
+    drawCard(users[0]);
     drawCard(dealer);
     let drawnCard = deck.pop();
-    dealer.CARDBOX.innerHTML += "<img src='blackjack-cards/back.png' alt= card back>";
+    dealer.CARDBOX.innerHTML += "<img src='../blackjack-cards/back.png' alt= card back>";
     dealer.CARDS.push(drawnCard);
     dealer.SCOREBOX.innerText = "?";
 }
 
 function hitClicked() {
+    console.log(deck)
     if (userTurn){
-        drawCard(user);
-        if(user.SCORE > 21){
+        drawCard(users[0]);
+        if(users[0].SCORE > 21){
             messageBox.innerText = "You bust - I win!";
             addWin(dealer);
             userTurn = false;
@@ -167,17 +174,17 @@ async function dealerTurn() {
             drawCard(dealer); 
         }
         // If the user score is > 21, the game is already over
-        if (user.SCORE > dealer.SCORE) {
+        if (users[0].SCORE > dealer.SCORE) {
             messageBox.innerText = "You win! I'll get you next time . . .";
-            addWin(user);
-        } else if (dealer.SCORE == user.SCORE && user.SCORE == 21) {
+            addWin(users[0]);
+        } else if (dealer.SCORE == users[0].SCORE && users[0].SCORE == 21) {
             messageBox.innerText = "Tie. I'm sure you want to play again, right?";
-        } else if (dealer.SCORE >= user.SCORE && dealer.SCORE < 22) {
+        } else if (dealer.SCORE >= users[0].SCORE && dealer.SCORE < 22) {
             messageBox.innerText = "I win! I win! I win!";
             addWin(dealer);
         } else if(dealer.SCORE > 21) {
             messageBox.innerText = "You win! I'll get you next time . . .";
-            addWin(user);
+            addWin(users[0]);
         } else {
             messageBox.innerText = "Can't figure out who won . . . Let's just play again, shall we?";
         }
