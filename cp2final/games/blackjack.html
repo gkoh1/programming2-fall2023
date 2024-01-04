@@ -15,19 +15,39 @@
             <h3 id ="message-box">Click Reset to begin the game. </h3>
         </div>
         <div id="game">
-            <div class="player-container">
-                <div class="small-header">
-                    <h3> Player </h3>
+            <div id="users-box">
+                <div class="player-container">
+                    <div class="small-header">
+                        <h3> Hand 1 </h3>
+                    </div>
+                    <div class="small-header" >
+                        <h3 id="player0-score">  </h3>
+                    </div>
+                    <div class="cards" id = "player0-cards">
+    
+                    </div>
+                    <div class = "wager" id = "player0-wager">
+    
+                    </div>
+                    <div id="actions">
+                        <button onclick="hitClicked(0)">
+                            Hit
+                        </button>
+                        <button onclick="standClicked(0)">
+                            Stand
+                        </button>
+                        <button onclick="doubleDown(0)">
+                            Double Down
+                        </button>
+                        <button onclick="split(0)">
+                            Split
+                        </button>
+                    </div>
                 </div>
-                <div class="small-header" >
-                    <h3 id="player-score">  </h3>
-                </div>
-                <div class="cards" id = "player-cards">
-
+                <div id="divider">
                 </div>
             </div>
-            <div id="divider">
-            </div>
+            
             <div class="player-container">
                 <div class="small-header">
                     <h3>Dealer</h3>
@@ -38,25 +58,20 @@
                 <div class="cards" id = "dealer-cards">
 
                 </div>
+                <div>
+
+                </div>
             </div>
         </div>
-        <div id="actions">
-            <button onclick="hitClicked()">
-                Hit
-            </button>
-            <button onclick="dealerTurn()">
-                Stand
-            </button>
+
+        <div id = "actions">
             <button onclick="reset()">
                 Reset
             </button>
         </div>
-        <div id="win-tracker">
+        <div id="money-tracker">
             <div class="win-box">
-                You've won <span id="user-wins">0</span> games
-            </div>
-            <div class="win-box">
-                The dealer has won <span id="dealer-wins">0</span> games
+                You've won/lost <span id="user-points">0</span> points
             </div>
         </div>
     </div>
