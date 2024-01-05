@@ -43,3 +43,82 @@
     display: flex;
     justify-content: center;
 }
+
+#game {
+    display: flex;
+    padding: 0 2vw;
+    justify-content: space-between;
+    width: 96vw;
+}
+
+#big-header, #game-state-banner {
+    text-align: center;
+}
+
+.player-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#divider {
+    padding: 3px;
+}
+
+.small-header {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards {
+    display: flex;
+    flex: 5;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+img {
+    flex: 1;
+    width: 1px;
+    margin: 15px;
+    border: purple 2px solid;
+    max-width: 150px;
+}
+
+button {
+    padding: 20px 50px;
+    color: black;
+    font-size: 15px;
+}
+
+#play-button {
+    display: inline;
+    padding: 0px 5px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+input {
+    display: inline;
+    color: black;
+}
+
+#win-tracker {
+    background-color: black;
+    display: flex;
+    padding: 1vh 5vw;
+    justify-content: space-between;
+}
+
+.win-box {
+    background-color: black;
+    flex: 1;
+}
+

@@ -18,12 +18,13 @@ function initialize() {
 // Assembles a deck with one of each card in a given suit (1-letter abbreviation is used later on)
 function makeSuitDeck(suit) {
     let suitDeck = [];
-    for (value in cardTypes) {
-        // Adds an object that represesnts that card including the value and the name of the image.
+    for (type in cardTypes) {
+        // Adds an object that represesnts that card including the value in blackjack and the name of the image.
         suitDeck.push({ 
-            VALUE: cardTypes[value], 
-            NAME: value + suit, 
-            IMAGEID: "../blackjack-cards/"+value+suit+".svg"});
+            VALUE: cardTypes[type], 
+            NAME: type + suit,
+            TYPE: type,
+            IMAGEID: "../blackjack-cards/"+type+suit+".svg"});
     }
     return suitDeck
 }
@@ -141,6 +142,8 @@ function reset() {
 
 function hitClicked(playerNum) {
     player = users[playerNum]
+    player.CARDBOX = document.getElementById("player"+playerNum+"-cards")
+    player.SCOREBOX = document.getElementById("player"+playerNum+"-score")
     drawCard(player);
     if(player.SCORE > 21){
         player.CANPLAY = false
@@ -161,33 +164,42 @@ function doubleDown(playerNum){
 
 function split(playerNum){
     player = users[playerNum]
-    if (player.CARDS.length > 2){
-        return
+    if (player.CARDS.length == 2 && player.CARDS[0].TYPE == player.CARDS[1].TYPE){
+        console.log('hi')
+        splitCard = player.CARDS.pop()
+        player.CARDBOX = document.getElementById("player"+playerNum+"-cards")
+        player.SCOREBOX = document.getElementById("player"+playerNum+"-score")
+        drawCard(player)
+        
+        player.CARDBOX.innerHTML = ""
+        for (card of player.CARDS) {
+            player.CARDBOX.innerHTML += "<img src=" + card.IMAGEID + " alt=" + card.NAME + ">"
+        }
+        newHandNumber = users.length
+        usersBox.innerHTML += '<div class="player-container"> <div class="small-header"> <h3> Hand ' + 
+        (newHandNumber + 1) + '</h3> </div> <div class="small-header" > <h3 id="player' + 
+        newHandNumber +'-score">  </h3></div><div class="cards" id = "player' + 
+        newHandNumber +'-cards"></div> <div class = "wager" id = "player' +  
+        newHandNumber + '-wager"></div><div id="actions"><button onclick="hitClicked('+ 
+        newHandNumber + ')">Hit</button><button onclick="standClicked(' +
+        newHandNumber + ')">Stand</button><button onclick="doubleDown(' +
+        newHandNumber + ')">Double Down</button><button onclick="split(' +
+        newHandNumber + ')">Split</button></div></div><div id="divider"></div>'
+        users.push({
+            CARDBOX: document.getElementById("player"+newHandNumber+"-cards"),
+            SCOREBOX: document.getElementById("player"+newHandNumber+"-score"),
+            SCORE: 0,
+            CARDS: [splitCard],
+            GAMESWON: 0,
+            // Change this to get something from local storage (later)
+            WAGER: firstWager,
+            CANPLAY: true
+        })
+        newPlayer = users[newHandNumber]
+        console.log(newPlayer.CARDS)
+        newPlayer.CARDBOX.innerHTML += "<img src=" + newPlayer.CARDS[0].IMAGEID + " alt=" + newPlayer.CARDS[0].NAME + ">"
+        drawCard(newPlayer)
     }
-    splitCard = player.CARDS.pop()
-    drawCard(player)
-    newHandNumber = users.length
-    usersBox.innerHTML += '<div class="player-container"> <div class="small-header"> <h3> Hand ' + 
-    (newHandNumber + 1) + '</h3> </div> <div class="small-header" > <h3 id="player' + 
-    newHandNumber +'-score">  </h3></div><div class="cards" id = "player' + 
-    newHandNumber +'-cards"></div> <div class = "wager" id = "player' +  
-    newHandNumber + '-wager"></div><div id="actions"><button onclick="hitClicked('+ 
-    newHandNumber + ')">Hit</button><button onclick="standClicked(' +
-    newHandNumber + ')">Stand</button><button onclick="doubleDown(' +
-    newHandNumber + ')">Double Down</button><button onclick="split(' +
-    newHandNumber + ')">Split</button></div></div><div id="divider"></div>'
-    users.push({
-        CARDBOX: document.getElementById("player"+newHandNumber+"-cards"),
-        SCOREBOX: document.getElementById("player"+newHandNumber+"-score"),
-        SCORE: 0,
-        CARDS: [splitCard],
-        GAMESWON: 0,
-        // Change this to get something from local storage (later)
-        WAGER: firstWager,
-        CANPLAY: true
-    })
-    drawCard(users[newHandNumber])
-
 }
 
 async function dealerTurn() {
