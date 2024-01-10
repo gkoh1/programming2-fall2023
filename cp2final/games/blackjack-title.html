@@ -23,10 +23,13 @@
             <li> After the game is over, click reset to play again (you have no other choice . . .)</li>
         </ul>
         <div>
-        How many decks do you want to play with? <input type="number" name="Input a number of decks" id="numDecks"> 
-        <button id='play-button'><a href="blackjack.html" onclick="initialize()"> Play!</a> </button>
+            How many decks do you want to play with? <input type="number" name="Input a number of decks" id="number-decks"> 
         </div>
-    </div>
+        <div>
+            What do you want your wager to be? <input type="number" name="Input a wager" id="initial-wager"> 
+        </div>  
+        <a href="blackjack.html" onclick="initialize()"> <button id='blackjack-play-button'>Play!</button></a> 
+
     <script type="text/javascript" src="../blackjack.js" ></script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <title>Roulette</title>
+</head>
+<body>
+    <div class="win-box">
+        You've won/lost <span id="user-points">0</span> chips
+    </div>
+    <div id="big-header">
+        <h1> Roulette</h1>
+    </div>
+    <div class = "actions">
+        <button class="blackjack-button" onclick="rotate()">
+            Spin Wheel
+        </button>
+        <a class="blackjack-nav-button" href="../index.html">
+            <button class="blackjack-button">
+                Home
+            </button>
+        </a>
+    </div>
+    <div id="roulette-outline">
+        <div id="roulette-vertical-display">
+            <div class="roulette-betting">
+                Wager: <input type="number" name="wager" id="roulette-wager">
+            </div>
+            <div class="roulette-betting">
+                Type of bet: 
+                <!-- onchange from stack overflow -->
+                <select name="original" id="roulette-bets" onchange="betChange()">
+                    <option value="Placeholder"> Choose a bet </option>
+                    <option value="number"> Single </option>
+                    <option value="split"> Split </option>
+                    <option value="row"> Street </option>
+                    <option value="corner"> Corner </option>
+                    <option value="2-row"> Double Street </option>
+                    <option value="0-corner"> Trio </option>
+                    <option value="0s-top-row"> Top Line </option>
+                    <option value="high-low"> High/Low </option>
+                    <option value="color"> Color</option>
+                    <option value="dozen"> Dozen</option>
+                    <option value="column"> Column</option>
+                </select>
+            </div>
+            <div class="roulette-betting">
+                Are you sure? <button class="blackjack-button" onclick="reset(false)">Place bet</button>
+            </div>
+            <img src="../misc-images/roulette-wheel.svg.png" alt="Roulette wheel" id="roulette-wheel">
+            <img src="../misc-images/arrow.png" alt="arrow" id="roulette-pointer">
+        </div> 
+        <div class="bet-list" id="roulette-list">
+            <div>
+                Placed Bets:
+            </div>
+        </div>
+    </div>
+
+   
+    <script type="text/javascript" src="../roulette.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ let users;
 let dealer;
 let usersBox;
 let chipsBox;
-let firstWager = 10;
+let firstWager;
 let activePlayer = 0;
 let netChips = 0
 const cardTypes = {
@@ -14,8 +14,11 @@ const cardTypes = {
 }
 
 function initialize() {
-    numDecks = document.getElementById("numDecks").value
+    numDecks = document.getElementById("number-decks").value
+    firstWager = document.getElementById("initial-wager").value
+    console.log(firstWager)
     localStorage.setItem("deckCount", numDecks);
+    localStorage.setItem("initialWager", firstWager);
 }
 
 // Assembles a deck with one of each card in a given suit (1-letter abbreviation is used later on)
@@ -134,7 +137,16 @@ function reset(override) {
         chipsBox = document.getElementById("user-points")
         userTurn = false;
         canStand = false;
-        numDecks = 1;
+        usersBox.innerHTML = '<div class="player-container"> <h3 class="small-header"> Hand ' + 
+        1 + '; Total: <span class="blackjack-number" id="player' + 
+        0 + '-score"></span>; Wager: <span class="blackjack-number" id="player' + 
+        0 +'-wager"></span> </h3> <div class="cards" id = "player' + 
+        0 +'-cards"></div> <div class = "wager" id = "player' +  
+        0 + '-wager"></div><div class="actions"><button class="blackjack-button" onclick="hitClicked('+ 
+        0 + ')">Hit</button><button class="blackjack-button" onclick="standClicked(' +
+        0 + ')">Stand</button><button class="blackjack-button" onclick="doubleDown(' +
+        0 + ')">Double Down</button><button class="blackjack-button" onclick="split(' +
+        0 + ')">Split</button></div></div><div id="divider"></div>'
     // The user and dealer are objects with the same properties so functions can be shared between them.
         users = [{
             CARDBOX: document.getElementById("player0-cards"),
@@ -225,8 +237,8 @@ function split(playerNum){
         }
         newHandNumber = users.length
         usersBox.innerHTML += '<div class="player-container"> <h3 class="small-header"> Hand ' + 
-        (newHandNumber + 1) + '; Total: <span id="player' + 
-        newHandNumber + '-score"></span>; Wager: <span id="player' + 
+        (newHandNumber + 1) + '; Total: <span class="blackjack-number" id="player' + 
+        newHandNumber + '-score"></span>; Wager: <span class="blackjack-number" id="player' + 
         newHandNumber +'-wager"></span> </h3> <div class="cards" id = "player' + 
         newHandNumber +'-cards"></div> <div class = "wager" id = "player' +  
         newHandNumber + '-wager"></div><div class="actions"><button class="blackjack-button" onclick="hitClicked('+ 
@@ -265,7 +277,6 @@ async function dealerTurn() {
         if (!player.BUST){
             allBust = false
         } else {
-            console.log("bust")
             payout(player, false)
             player.SCORED = true
             console.log(netChips)
@@ -280,7 +291,7 @@ async function dealerTurn() {
             dealer.SCORE += card.VALUE;
             dealer.CARDBOX.innerHTML += card.IMAGEHTML;
         }
-        console.log("pre bj")
+        dealer.SCOREBOX.innerText = dealer.SCORE;
         // Deals with natural blackjack
         for (player of users){
             if (player.SCORE == 21 && player.CARDS.length == 2) {
@@ -290,36 +301,40 @@ async function dealerTurn() {
                 }
             }
         }
-        console.log("pre while")
-        dealer.SCOREBOX.innerText = dealer.SCORE;
-        messageBox.innerHTML = "The dealer will hit until their score is at least 17, then they will stand.";
-        while(dealer.SCORE < 17){
-            await sleep(1500);
-            drawCard(dealer); 
-        }
-        console.log("last for")
+        let allScored = true
         for (player of users) {
-            if(player.SCORED){
-                break
+            if (!player.SCORED) {
+                allScored = false
             }
-            // If the user score is > 21, they've already been scored
-            if (player.SCORE > dealer.SCORE) {
-                payout(player, true);
-                player.SCORED = true
-            } else if (dealer.SCORE == player.SCORE && player.SCORE == 21) {
-                player.SCORED = true
-            } else if (dealer.SCORE >= player.SCORE && dealer.SCORE < 22) {
-                payout(player, false);
-                player.SCORED = true
-            } else if(dealer.SCORE > 21) {
-                payout(player, true);
-                player.SCORED = true
-            } else {
-                console.log( "Error calculating victory for this player: " + player);
+        }
+        if(!allScored){
+            messageBox.innerHTML = "The dealer will hit until their score is at least 17, then they will stand.";
+            while(dealer.SCORE < 17){
+                await sleep(1500);
+                drawCard(dealer); 
+            }
+            for (player of users) {
+                if(player.SCORED){
+                    break
+                }
+                // If the user score is > 21, they've already been scored
+                if (player.SCORE > dealer.SCORE) {
+                    payout(player, true);
+                    player.SCORED = true
+                } else if (dealer.SCORE == player.SCORE && player.SCORE == 21) {
+                    player.SCORED = true
+                } else if (dealer.SCORE >= player.SCORE && dealer.SCORE < 22) {
+                    payout(player, false);
+                    player.SCORED = true
+                } else if(dealer.SCORE > 21) {
+                    payout(player, true);
+                    player.SCORED = true
+                } else {
+                    console.log( "Error calculating victory for this player: " + player);
+                }
             }
         }
     }
-    console.log("end func")
     chipsBox.innerText = netChips
     messageBox.innerHTML = "Payouts calculated. Press reset to play again."
 }
@@ -331,6 +346,12 @@ if(parseInt(localStorage["deckCount"])){
 } else {
     numDecks = 8;
 }
+if(parseInt(localStorage["initialWager"])){
+    firstWager = Math.abs(parseInt(localStorage["initialWager"]));
+} else {
+    firstWager = 1;
+}
+console.log(localStorage)
 deck = makeDeck();
 // Should establish an initial wager
 reset(true);

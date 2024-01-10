@@ -99,9 +99,12 @@
     background-color: lightslategray;
 }
 
-#play-button {
-    display: inline;
-    padding: 0px 5px;
+#blackjack-play-button {
+    display: block;
+    padding: 1px 20px;
+    color: black;
+    font-size: 15px;
+    background-color: lightslategray;
 }
 
 a {
@@ -139,4 +142,48 @@ input {
 .blackjack-nav-button {
     flex: 1;
     display: flex;
+}
+
+.blackjack-number {
+    padding: 0px 0px 0px 3px;
+}
+
+#roulette-outline {
+    display: flex;
+    flex-direction: row;
+}
+
+#roulette-wheel {
+    height: 1px;
+    position: relative;
+    flex: 1;
+    background-color: transparent;
+}
+
+.roulette-betting {
+    font-size: 16px;
+    padding: 1vh;
+}
+
+.bet-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#roulette-vertical-display {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-height: 80vh;
+    align-items: baseline;
+}
+
+/* https://stackoverflow.com/questions/48474/how-do-i-position-one-image-on-top-of-another-in-html taught me to stack images */
+#roulette-pointer {
+    background-color: transparent;
+    position: absolute;
+    width: 30vh;
+    transform-origin: 0% 50%;
 }
