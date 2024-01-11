@@ -30,33 +30,46 @@
             </div>
             <div class="roulette-betting">
                 Type of bet: 
-                <!-- onchange from stack overflow -->
+                <!-- onchange from https://stackoverflow.com/questions/12080098/dropdown-using-javascript-onchange-->
                 <select name="original" id="roulette-bets" onchange="betChange()">
                     <option value="Placeholder"> Choose a bet </option>
                     <option value="number"> Single </option>
                     <option value="split"> Split </option>
-                    <option value="row"> Street </option>
+                    <option value="top-row"> Top Row </option>
+                    <option value="street"> Street </option>
                     <option value="corner"> Corner </option>
-                    <option value="2-row"> Double Street </option>
-                    <option value="0-corner"> Trio </option>
-                    <option value="0s-top-row"> Top Line </option>
-                    <option value="high-low"> High/Low </option>
+                    <option value="double-street"> Double Street </option>
+                    <option value="trio"> Trio </option>
+                    <option value="top-line"> Top Line </option>
+                    <option value="high/low"> High/Low </option>
                     <option value="color"> Color</option>
                     <option value="dozen"> Dozen</option>
                     <option value="column"> Column</option>
                 </select>
+                <div id="roulette-bet-info">
+
+                </div>
             </div>
             <div class="roulette-betting">
                 Are you sure? <button class="blackjack-button" onclick="reset(false)">Place bet</button>
             </div>
             <img src="../misc-images/roulette-wheel.svg.png" alt="Roulette wheel" id="roulette-wheel">
             <img src="../misc-images/arrow.png" alt="arrow" id="roulette-pointer">
+            <div id="roulette-number-box">
+                3
+            </div>
         </div> 
-        <div class="bet-list" id="roulette-list">
-            <div>
-                Placed Bets:
+        <div class="bet-list" >
+            <h4 id="roulette-message-box">
+                Place your bets and click roll when you're done.
+            </h4>
+            <div id="roulette-list">
+                <div>
+                    Placed Bets:
+                </div>
             </div>
         </div>
+
     </div>
 
    

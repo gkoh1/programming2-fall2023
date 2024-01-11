@@ -187,3 +187,17 @@ input {
     width: 30vh;
     transform-origin: 0% 50%;
 }
+
+#roulette-number-box {
+    position: absolute;
+    text-align: center;
+    background-color: transparent;
+}
+
+#roulette-bet-info {
+    display: inline;
+}
+
+.roulette-bet-number {
+    width: 50px;
+}

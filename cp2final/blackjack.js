@@ -16,7 +16,6 @@ const cardTypes = {
 function initialize() {
     numDecks = document.getElementById("number-decks").value
     firstWager = document.getElementById("initial-wager").value
-    console.log(firstWager)
     localStorage.setItem("deckCount", numDecks);
     localStorage.setItem("initialWager", firstWager);
 }
@@ -135,7 +134,6 @@ function reset(override) {
         messageBox = document.getElementById("message-box");
         usersBox = document.getElementById("users-box");
         chipsBox = document.getElementById("user-points")
-        userTurn = false;
         canStand = false;
         usersBox.innerHTML = '<div class="player-container"> <h3 class="small-header"> Hand ' + 
         1 + '; Total: <span class="blackjack-number" id="player' + 
@@ -185,7 +183,7 @@ function reset(override) {
         dealer.CARDS.push(drawnCard);
         dealer.SCOREBOX.innerText = "?";
         updateWager(users[0],users[0].WAGER)
-    }
+    } 
 }
 
 function hitClicked(playerNum) {
@@ -211,6 +209,9 @@ function standClicked(playerNum) {
 
 function doubleDown(playerNum){
     player = users[playerNum]
+    player.CARDBOX = document.getElementById("player"+playerNum+"-cards")
+    player.SCOREBOX = document.getElementById("player"+playerNum+"-score")
+    player.WAGERBOX = document.getElementById("player"+playerNum+"-wager")
     if(playerNum == activePlayer && player.CARDS.length == 2){
         updateWager(player,player.WAGER*2)
         drawCard(player)
@@ -225,7 +226,6 @@ function doubleDown(playerNum){
 function split(playerNum){
     player = users[playerNum]
     if (player.CARDS.length == 2 && player.CARDS[0].TYPE == player.CARDS[1].TYPE && playerNum == activePlayer){
-        console.log('hi')
         splitCard = player.CARDS.pop()
         player.CARDBOX = document.getElementById("player"+playerNum+"-cards")
         player.SCOREBOX = document.getElementById("player"+playerNum+"-score")
@@ -260,7 +260,6 @@ function split(playerNum){
             SCORED: false
         })
         newPlayer = users[newHandNumber]
-        console.log(newPlayer.CARDS)
         newPlayer.CARDBOX.innerHTML += newPlayer.CARDS[0].IMAGEHTML
         drawCard(newPlayer)
         updateWager(newPlayer, newPlayer.WAGER)
@@ -279,11 +278,9 @@ async function dealerTurn() {
         } else {
             payout(player, false)
             player.SCORED = true
-            console.log(netChips)
         }
     }
     if (!allBust){
-        userTurn = false;
         dealer.CARDBOX.innerHTML = "";
         dealer.SCORE = 0;
         // "Redraws" the two cards the dealer already has. This is a somewhat roundabout way of turning over the hidden card
@@ -315,7 +312,7 @@ async function dealerTurn() {
             }
             for (player of users) {
                 if(player.SCORED){
-                    break
+                    continue
                 }
                 // If the user score is > 21, they've already been scored
                 if (player.SCORE > dealer.SCORE) {
@@ -351,7 +348,6 @@ if(parseInt(localStorage["initialWager"])){
 } else {
     firstWager = 1;
 }
-console.log(localStorage)
 deck = makeDeck();
 // Should establish an initial wager
 reset(true);
