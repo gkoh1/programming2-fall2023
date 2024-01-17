@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <title>Craps</title>
+</head>
+<body>
+    <div class="win-box">
+        You've won/lost <span id="user-points">0</span> chips
+    </div>
+    <div id="big-header">
+        <h1> Craps</h1>
+    </div>
+    <div class = "actions">
+        <button class="control-button" onclick="roll()">
+            Roll Dice
+        </button>
+        <a class="nav-link" href="../index.html">
+            <button class="control-button">
+                Home
+            </button>
+        </a>
+    </div>
+        <div id="craps-vertical-display">
+            <h4 id="craps-message-box">
+                Place a bet.
+            </h4>
+            <div class="betting-bar">
+                Wager: <input type="number" name="wager" id="craps-wager">
+            </div>
+            <div class="betting-bar">
+                Type of bet: 
+                <!-- onchange from https://stackoverflow.com/questions/12080098/dropdown-using-javascript-onchange-->
+                <select name="original" id="craps-bets">
+                    <option value="Placeholder"> Choose a bet </option>
+                    <option value="pass"> Pass</option>
+                    <option value="dont-pass"> Don't Pass</option>
+                </select>
+            </div>
+            <div class="betting-bar">
+                Are you sure? <button class="control-button" onclick="placeBet()">Place bet</button>
+            </div>
+            <h4 id="bet-info">
+                You have not yet placed a bet.
+            </h4>
+            <div id="roll-info">
+                <span id="craps-roll"> </span> was rolled.
+            </div>
+            <div id="craps-dice">
+                <div id="die-1">
+                    <img src="../dice-faces/1.png" alt="1" class="craps-die">
+                </div>
+                <div id="die-2">
+                    <img src="../dice-faces/1.png" alt="1" class="craps-die">
+                </div>
+            </div>
+        </div> 
+    </div>
+
+   
+    <script type="text/javascript" src="../craps.js"></script>
+</body>
+</html>

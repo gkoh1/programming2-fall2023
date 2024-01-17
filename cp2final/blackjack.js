@@ -85,7 +85,7 @@ function payout(player, win){
     if(win) {
         netChips += player.WAGER
     } else {
-        netChips += -player.WAGER
+        netChips -= player.WAGER
     }
 }
 
@@ -140,10 +140,10 @@ function reset(override) {
         0 + '-score"></span>; Wager: <span class="blackjack-number" id="player' + 
         0 +'-wager"></span> </h3> <div class="cards" id = "player' + 
         0 +'-cards"></div> <div class = "wager" id = "player' +  
-        0 + '-wager"></div><div class="actions"><button class="blackjack-button" onclick="hitClicked('+ 
-        0 + ')">Hit</button><button class="blackjack-button" onclick="standClicked(' +
-        0 + ')">Stand</button><button class="blackjack-button" onclick="doubleDown(' +
-        0 + ')">Double Down</button><button class="blackjack-button" onclick="split(' +
+        0 + '-wager"></div><div class="actions"><button class="control-button" onclick="hitClicked('+ 
+        0 + ')">Hit</button><button class="control-button" onclick="standClicked(' +
+        0 + ')">Stand</button><button class="control-button" onclick="doubleDown(' +
+        0 + ')">Double Down</button><button class="control-button" onclick="split(' +
         0 + ')">Split</button></div></div><div id="divider"></div>'
     // The user and dealer are objects with the same properties so functions can be shared between them.
         users = [{
@@ -241,10 +241,10 @@ function split(playerNum){
         newHandNumber + '-score"></span>; Wager: <span class="blackjack-number" id="player' + 
         newHandNumber +'-wager"></span> </h3> <div class="cards" id = "player' + 
         newHandNumber +'-cards"></div> <div class = "wager" id = "player' +  
-        newHandNumber + '-wager"></div><div class="actions"><button class="blackjack-button" onclick="hitClicked('+ 
-        newHandNumber + ')">Hit</button><button class="blackjack-button" onclick="standClicked(' +
-        newHandNumber + ')">Stand</button><button class="blackjack-button" onclick="doubleDown(' +
-        newHandNumber + ')">Double Down</button><button class="blackjack-button" onclick="split(' +
+        newHandNumber + '-wager"></div><div class="actions"><button class="control-button" onclick="hitClicked('+ 
+        newHandNumber + ')">Hit</button><button class="control-button" onclick="standClicked(' +
+        newHandNumber + ')">Stand</button><button class="control-button" onclick="doubleDown(' +
+        newHandNumber + ')">Double Down</button><button class="control-button" onclick="split(' +
         newHandNumber + ')">Split</button></div></div><div id="divider"></div>'
         users.push({
             CARDBOX: document.getElementById("player"+newHandNumber+"-cards"),
@@ -263,7 +263,6 @@ function split(playerNum){
         newPlayer.CARDBOX.innerHTML += newPlayer.CARDS[0].IMAGEHTML
         drawCard(newPlayer)
         updateWager(newPlayer, newPlayer.WAGER)
-        advancePlayer()
     }
 }
 

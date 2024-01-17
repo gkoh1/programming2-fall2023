@@ -7,6 +7,9 @@ let bettingBox = document.getElementById("roulette-bet-info");
 let wagerBox = document.getElementById("roulette-wager");
 let messageBox = document.getElementById("roulette-message-box");
 let betList = document.getElementById("roulette-list");
+let netChipsBox = document.getElementById("user-points");
+let netChips = 0;
+let canRoll = true;
 // 0 is represented as 0 and 00 as -1 here
 const wheelOrder = [6, 21, 33, 16, 4 ,23, 35, 14, 2, 0, 28, 9, 26, 30, 11, 7, 20, 32, 17, 5, 22, 34, 15, 3, 24, 36, 13, 1, -1, 27, 10, 35, 29, 12, 8, 19, 31, 18];
 // From https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element
@@ -25,67 +28,90 @@ function resetWheel() {
     rouletteWheel.style.maxHeight = wheelBoxRect.width+"px";
     console.log(rouletteWheel.style.maxHeight);
     wheelRect = rouletteWheel.getBoundingClientRect();
+    // If we don't go to 0 rotation, the top of the pointer may be in a weird place (i.e. not the top line of the arrowhead, which is what we want)
+    pointer.style.transform = "rotate(0deg)";
     pointerRect = pointer.getBoundingClientRect();
     pointer.style.top = (wheelRect.top+wheelRect.bottom-(pointerRect.height))/2 + "px";
     pointer.style.left = (wheelRect.right+wheelRect.left)/2 + "px";
     pointer.style.width = (wheelRect.width/2)*.875  + "px";
+    pointer.style.transform = "rotate("+currentRotation+"deg)";
 }
 
 async function rotate() {
-    rolledNumBox.hidden = true;
-    let sleepLength = 3;
-    // From https://cloudinary.com/blog/rotating_images_in_javascript_three_quick_tutorials#:~:text=To%20animate%20rotations%2C%20apply%20the,second%20with%20a%20slow%20start.&text=By%20default%2C%20the%20image%20rotates%20around%20its%20center%20point.
-    for(let addedRotation = 0; addedRotation<540; addedRotation++){
-        await sleep(3);
-        currentRotation++;
-        pointer.style.transform = "rotate("+currentRotation+"deg)";
-    }
-    let beforeRandom = currentRotation
-    let randomRotation = 360*Math.random()
-    if(randomRotation < 50){
-        randomRotation += 360
-    }
-    sleepLength = 3
-    for(let addedRotation = 0; addedRotation<randomRotation; addedRotation++){
-        await sleep(sleepLength);
-        if ((randomRotation - addedRotation) < 100) {
-            sleepLength += .5
+    if(canRoll){
+        rolledNumBox.hidden = true;
+        let sleepLength = 3;
+        // From https://cloudinary.com/blog/rotating_images_in_javascript_three_quick_tutorials#:~:text=To%20animate%20rotations%2C%20apply%20the,second%20with%20a%20slow%20start.&text=By%20default%2C%20the%20image%20rotates%20around%20its%20center%20point.
+        for(let addedRotation = 0; addedRotation<540; addedRotation++){
+            await sleep(3);
+            currentRotation++;
+            pointer.style.transform = "rotate("+currentRotation+"deg)";
         }
-        if ((randomRotation - addedRotation) < 20) {
-            sleepLength += .5
+        let beforeRandom = currentRotation
+        let randomRotation = 360*Math.random()
+        if(randomRotation < 50){
+            randomRotation += 360
         }
-        if ((randomRotation - addedRotation) < 5) {
-            sleepLength += .5
+        sleepLength = 3
+        for(let addedRotation = 0; addedRotation<randomRotation; addedRotation++){
+            await sleep(sleepLength);
+            if ((randomRotation - addedRotation) < 100) {
+                sleepLength += .5
+            }
+            if ((randomRotation - addedRotation) < 20) {
+                sleepLength += .5
+            }
+            if ((randomRotation - addedRotation) < 5) {
+                sleepLength += .5
+            }
+            currentRotation++
+            pointer.style.transform = "rotate("+currentRotation+"deg)"
         }
-        currentRotation++
+        currentRotation = beforeRandom+randomRotation
         pointer.style.transform = "rotate("+currentRotation+"deg)"
+        console.log(currentRotation)
+        currentRotation = currentRotation%360
+        console.log(currentRotation)
+        let tileNumber = Math.floor(currentRotation*38/360)
+        console.tileNumber
+        let rolledNumber = wheelOrder[tileNumber]
+        console.log(rolledNumber)
+        if (rolledNumber > -1) {
+            rolledNumBox.innerText = "The wheel landed on " + rolledNumber
+        } else {
+            rolledNumBox.innerText = "The wheel landed on 00"
+        }
+    
+        if(currentRotation < 180) {
+            rolledNumBox.style.top = (wheelRect.top*.57+wheelRect.bottom*.43) + "px"
+        } else {
+            rolledNumBox.style.top = (wheelRect.top*.43+wheelRect.bottom*.57) + "px"
+        }
+        rolledNumBox.hidden = false
+        rolledNumBoxDims = rolledNumBox.getBoundingClientRect()
+        rolledNumBox.style.left = pointer.style.left = (wheelRect.right+wheelRect.left-(rolledNumBoxDims.right-rolledNumBoxDims.left))/2 + "px"
+        // If I don't do this, the pointer moves in a weird way. Not sure why.
+        pointer.style.top = (wheelRect.top+wheelRect.bottom-(pointerRect.bottom-pointerRect.top))/2 + "px"
+        pointer.style.left = (wheelRect.right+wheelRect.left)/2 + "px"
+        console.log(bets)
+        for (bet of bets){
+            payout = false;
+            console.log(bet.WIN)
+            for(win of bet.WIN){
+                if(rolledNumber == win){
+                    netChips += bet.PAYOUT;;
+                    payout = true;
+                    break;
+                }
+            }
+            if(!payout){
+                netChips += -bet.WAGER;
+            }
+        }
+        netChipsBox.innerText = netChips
+        messageBox.innerText = "Bets paid out. Press reset to go again."
+        canRoll = false
     }
-    currentRotation = beforeRandom+randomRotation
-    pointer.style.transform = "rotate("+currentRotation+"deg)"
-    console.log(currentRotation)
-    currentRotation = currentRotation%360
-    console.log(currentRotation)
-    let tileNumber = Math.floor(currentRotation*38/360)
-    console.tileNumber
-    let rolledNumber = wheelOrder[tileNumber]
-    console.log(rolledNumber)
-    if (rolledNumber > -1) {
-        rolledNumBox.innerText = "The wheel landed on " + rolledNumber
-    } else {
-        rolledNumBox.innerText = "The wheel landed on 00"
-    }
-   
-    if(currentRotation < 180) {
-        rolledNumBox.style.top = (wheelRect.top*.57+wheelRect.bottom*.43) + "px"
-    } else {
-        rolledNumBox.style.top = (wheelRect.top*.43+wheelRect.bottom*.57) + "px"
-    }
-    rolledNumBox.hidden = false
-    rolledNumBoxDims = rolledNumBox.getBoundingClientRect()
-    rolledNumBox.style.left = pointer.style.left = (wheelRect.right+wheelRect.left-(rolledNumBoxDims.right-rolledNumBoxDims.left))/2 + "px"
-    // If I don't do this, the pointer moves in a weird way. Not sure why.
-    pointer.style.top = (wheelRect.top+wheelRect.bottom-(pointerRect.bottom-pointerRect.top))/2 + "px"
-    pointer.style.left = (wheelRect.right+wheelRect.left)/2 + "px"  
 }
 
 // This is not mine. From Stack Overflow.
@@ -94,7 +120,7 @@ function sleep(ms) {
 }
 
 function betChange() {
-    messageBox.innerText = "Place your bets and click roll when you're done."
+    messageBox.innerText = "Place your bets and click spin wheel when you're done."
     bettingBox.innerHTML = ""
     switch(betSelctor.value) {
         case "number":
@@ -116,7 +142,7 @@ function betChange() {
             bettingBox.innerHTML += "<select name='trio' id='trio-choice'> <option value='Placeholder'> Choose a trio </option> <option value='0-1-2'> 0-1-2 </option> <option value='0-00-2'> 0-00-2 </option> <option value='00-2-3'> 00-2-3 </option></select>" 
             break;    
         case "high/low":
-            bettingBox.innerHTML += "<select name='high/low' id='high/low-choice'> <option value='Placeholder'> High or low? </option> <option value='high'> High</option> <option value='low'> Low </option></select>" 
+            bettingBox.innerHTML += "<select name='high/low' id='high/low-choice'> <option value='Placeholder'> High or low? </option><option value='low'> Low </option><option value='high'> High</option></select>" 
             break;
         case "color":
             bettingBox.innerHTML += "<select name='color' id='color-choice'> <option value='Placeholder'> Red or black? </option> <option value='red'> Red</option> <option value='black'> Black </option></select>" 
@@ -139,7 +165,7 @@ function updateBets(wins, wager, payout) {
         WAGER: wager
     }
     let betText = wins.join(", ")
-    bets += newBet
+    bets.push(newBet)
     betList.innerHTML += "<div> Bet on "+betText+" with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
 }
 
@@ -160,8 +186,8 @@ function extractNumbers(boxes){
 
 // This function is a bit cursed but I can't really think of a better way because the conditions change for each type of bet 
 function addBet() {
-    if(wagerBox.value == 0){
-        messageBox.innerText = "Enter a nonzero wager";
+    if(wagerBox.value < 1){
+        messageBox.innerText = "Enter a wager of at least 1";
         return;
     }
     switch(betSelctor.value){
@@ -172,7 +198,7 @@ function addBet() {
                 PAYOUT: wager*35,
                 WAGER: wager
             }
-            bets += newBet
+            bets.push(newBet)
             betList.innerHTML += "<div> Bet on 0 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
             break;
         case "00":
@@ -182,7 +208,7 @@ function addBet() {
                 PAYOUT: wager*35,
                 WAGER: wager
             }
-            bets += newBet
+            bets.push(newBet)
             betList.innerHTML += "<div> Bet on 00 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
             break;
         case "number":
@@ -213,7 +239,7 @@ function addBet() {
                 PAYOUT: wager*17,
                 WAGER: wager
             }
-            bets += newBet
+            bets.push(newBet)
             betList.innerHTML += "<div> Bet on 0 and 00 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
             break;
         case "street":
@@ -256,7 +282,7 @@ function addBet() {
                         PAYOUT: wager*11,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 0, 1, and 2 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "0-00-2":
@@ -266,7 +292,7 @@ function addBet() {
                         PAYOUT: wager*11,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 0, 00, and 2 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "00-2-3":
@@ -276,7 +302,7 @@ function addBet() {
                         PAYOUT: wager*11,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 00, 2, and 3 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 default:
@@ -291,7 +317,7 @@ function addBet() {
                 PAYOUT: wager*6,
                 WAGER: Math.round(wager*100*33/5)/100
             }
-            bets += newBet
+            bets.push(newBet)
             betList.innerHTML += "<div> Bet on 0, 00, 1, 2, and 3 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
             break;
         // There is a better way to do this without repeating all the newBet = ... boilerplate    
@@ -308,7 +334,7 @@ function addBet() {
                         PAYOUT: wager,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 19-36 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "low":
@@ -322,7 +348,7 @@ function addBet() {
                         PAYOUT: wager,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 1-18 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 default:
@@ -333,31 +359,23 @@ function addBet() {
         case "color":
             switch(document.getElementById("color-choice").value){
                 case "red":
-                    wins = []
-                    for(let i=1; i<19; i++){
-                        wins.push(2*i-1)
-                    }
                     wager = Math.round(wagerBox.value*100)/100
                     newBet = {
-                        WIN: wins,
+                        WIN: [32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3],
                         PAYOUT: wager,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on red with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "black":
-                    wins = []
-                    for(let i=1; i<19; i++){
-                        wins.push(2*i)
-                    }
                     wager = Math.round(wagerBox.value*100)/100
                     newBet = {
-                        WIN: wins,
+                        WIN: [15, 4, 2, 17, 6, 13, 11, 8, 10, 24, 33, 20, 31, 22, 29, 28, 35, 26],
                         PAYOUT: wager,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on black with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 default:
@@ -378,7 +396,7 @@ function addBet() {
                         PAYOUT: wager*2,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 1-12 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "13-24":
@@ -392,7 +410,7 @@ function addBet() {
                         PAYOUT: wager*2,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 13-25 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "25-36":
@@ -406,7 +424,7 @@ function addBet() {
                         PAYOUT: wager*2,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on 25-36 with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 default:
@@ -427,7 +445,7 @@ function addBet() {
                         PAYOUT: wager*2,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on the left column with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "column-2":
@@ -441,7 +459,7 @@ function addBet() {
                         PAYOUT: wager*2,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on the middle column with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 case "column-3":
@@ -455,7 +473,7 @@ function addBet() {
                         PAYOUT: wager*2,
                         WAGER: wager
                     }
-                    bets += newBet
+                    bets.push(newBet)
                     betList.innerHTML += "<div> Bet on the right column with a wager of "+newBet.WAGER+" and a payout of "+ newBet.PAYOUT+ "</div>"
                     break;
                 default:
@@ -468,3 +486,9 @@ function addBet() {
     resetWheel()
 }
 
+function reset(){
+    bets = []
+    betList.innerHTML = " <div> Placed Bets:</div>"
+    canRoll = true
+    messageBox.innerText = "Place your bets"
+}

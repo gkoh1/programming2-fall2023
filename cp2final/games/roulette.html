@@ -14,21 +14,24 @@
         <h1> Roulette</h1>
     </div>
     <div class = "actions">
-        <button class="blackjack-button" onclick="rotate()">
+        <button class="control-button" onclick="reset()">
+            Reset
+        </button>
+        <button class="control-button" onclick="rotate()">
             Spin Wheel
         </button>
-        <a class="blackjack-nav-button" href="../index.html">
-            <button class="blackjack-button">
+        <a class="nav-link" href="../index.html">
+            <button class="control-button">
                 Home
             </button>
         </a>
     </div>
     <div id="roulette-outline">
         <div id="roulette-vertical-display">
-            <div class="roulette-betting">
+            <div class="betting-bar">
                 Wager: <input type="number" name="wager" id="roulette-wager">
             </div>
-            <div class="roulette-betting">
+            <div class="betting-bar">
                 Type of bet: 
                 <!-- onchange from https://stackoverflow.com/questions/12080098/dropdown-using-javascript-onchange-->
                 <select name="original" id="roulette-bets" onchange="betChange()">
@@ -52,8 +55,8 @@
 
                 </div>
             </div>
-            <div class="roulette-betting">
-                Are you sure? <button class="blackjack-button" onclick="addBet()">Place bet</button>
+            <div class="betting-bar">
+                Are you sure? <button class="control-button" onclick="addBet()">Place bet</button>
             </div>
             <img src="../misc-images/roulette-wheel.svg.png" alt="Roulette wheel" id="roulette-wheel">
             <img src="../misc-images/arrow.png" alt="arrow" id="roulette-pointer">

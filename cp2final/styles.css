@@ -91,7 +91,7 @@
     max-width: 150px;
 }
 
-.blackjack-button {
+.control-button {
     flex: 1;
     text-align: center;
     color: black;
@@ -139,7 +139,7 @@ input {
     justify-content: space-evenly;
 }
 
-.blackjack-nav-button {
+.nav-link {
     flex: 1;
     display: flex;
 }
@@ -161,7 +161,7 @@ input {
     max-height: 100vh;
 }
 
-.roulette-betting {
+.betting-bar {
     font-size: 16px;
     padding: 1vh;
 }
@@ -201,4 +201,21 @@ input {
 
 .roulette-bet-number {
     width: 50px;
+}
+
+#craps-vertical-display {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-height: 80vh;
+}
+
+#craps-dice {
+    flex: 3;
+    display: flex;
+}
+
+.craps-die {
+    max-height: 45vh;
+    flex: 1;
 }
