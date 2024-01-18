@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
-    <title>Grant's Casino: Blackjack</title>
+    <title>Blackjack Title Page</title>
 </head>
 <body>
     <div id="title-page">
         <p>
-            Welcome to Grant's Casino! With our notriously petulant dealers and sketchy UI choices, we're sure that once you start playing, you'll never want to stop!
-        </p>
-        <p>
-            So, you want to play Blackjack, huh? Well, in case you need a reminder, here are the rules:
-        </p>
+            Rules of Blackjack:
         <ul>
-            <li> You start with two cards, hit draws another card</li>
+            <li> You start with two cards. Hit draws another card</li>
+            <li> A card's value is equal to the number on it. Face cards are worth ten, and aces are worth 11 or 1 (whatever is more beneificial). Your total is the sum of the values of all your cards.</li>
+            <li> If your hand has exactly two cards with the same value (i.e. 2 queens and nothing else), you may split. Splitting creates a new hand (with the same wager) using one of the cards. Your original hand and the new hand will each draw a card, ending with two total.</li>
+            <li> If your hand has exactly two cards, you may double down, which doubles your wager, draws one card, and then stands.</li>
             <li> The dealer starts with two cards, one face down.</li>
             <li> Once you stand, the dealer hits until their score is at least 17</li>
-            <li> Highest score under 22 wins. Dealer wins ties unless both players get 21, in which case it is a tie.</li>
-            <li> If you go over 21 (bust), you lose and the dealer doesn't play.</li>
-            <li> After the game is over, click reset to play again (you have no other choice . . .)</li>
+            <li> Highest score under 22 wins. Dealer usually wins ties.</li>
+            <li> If your cards in a 2-card hand make a blackjack (total of 21), that's a natural blackjack and wins unless the dealer also has a natural blackjack, in which case it ties.</li>
+            <li> If a hand gets a (not natural) blakjack and the dealer gets blackjack, the hand ties. </li>
+            <li> If a hand goes over 21 (bust), is loses. If all hands bust, the dealer doesn't play.</li>
+            <li> After the game is over, click reset to play again </li>
         </ul>
         <div>
             How many decks do you want to play with? <input type="number" name="Input a number of decks" id="number-decks"> 
