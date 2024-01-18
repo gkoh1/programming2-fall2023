@@ -17,6 +17,7 @@ function placeBet(){
     if(!canRoll){
         point = undefined;
         wager = wagerBox.value;
+        wager = parseInt(Math.floor(wager))
         if(wager < 1){
             betInfoBox.innerText = "Place a wager of at least 1";
             return;
