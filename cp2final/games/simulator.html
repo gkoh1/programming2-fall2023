@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <title>Craps</title>
+</head>
+<body>
+    <h3 id="message-box">
+        Fill out the fields below, then click simulate to get a csv simulation of the game
+    </h3>
+    <div>
+        The probability of winning your game is <input type="number" name="win chance" id="win-chance">
+    </div>
+    <div>
+        The payout is <input type="number" name="odds" id="odds"> chips for every chip wagered
+    </div>
+    <div>
+        The initial wager is <input type="number" name="initial wager" id="first-wager"> chips
+    </div>
+    <div>
+        The player will play for a maximum of <input type="number" name="max rounds" id="max-rounds"> rounds (default 100)
+    </div>
+    <div>
+        The player will stop after losing at least <input type="number" name="max loss" id="max-loss"> chips (default never stop)
+    </div>
+    <div>
+        The player will stop after winning at least <input type="number" name="max gain" id="max-gain"> chips (default never stop)
+    </div>
+    <div>
+        After winning a round, a player will change their bet by 
+        <select name="win changes" id="win-changes">
+            <option value="default"> Select an option, then fill a number into the adjacent box</option>
+            <option value="set"> Setting it to</option>
+            <option value="add"> Adding </option>
+            <option value="multiply"> Multiplying it by</option>
+        </select>
+        <input type="number" name="max gain" id="win-change-number"> 
+    </div>
+    <div>
+        After losing a round, a player will change their bet by 
+        <select name="loss changes" id="loss-changes">
+            <option value="default"> Select an option, then fill a number into the adjacent box</option>
+            <option value="set"> Setting it to</option>
+            <option value="add"> Adding </option>
+            <option value="multiply"> Multiplying it by</option>
+        </select>
+        <input type="number" name="max gain" id="loss-change-number"> 
+    </div>
+    <button onclick="simulate()" class="control-button ">
+        Simulate
+    </button>
+   
+    <script type="text/javascript" src="../simulator.js"></script>
+</body>
+</html>
