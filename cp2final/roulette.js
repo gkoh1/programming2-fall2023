@@ -361,7 +361,7 @@ function addBet() {
                 case "red":
                     wager = Math.round(wagerBox.value*100)/100
                     newBet = {
-                        WIN: [32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3],
+                        WIN: [27, 35, 12, 19, 18, 21, 16, 23, 14, 9, 30, 7, 32, 5, 34, 3, 36, 1],
                         PAYOUT: wager,
                         WAGER: wager
                     }
@@ -371,7 +371,7 @@ function addBet() {
                 case "black":
                     wager = Math.round(wagerBox.value*100)/100
                     newBet = {
-                        WIN: [15, 4, 2, 17, 6, 13, 11, 8, 10, 24, 33, 20, 31, 22, 29, 28, 35, 26],
+                        WIN: [10, 29, 8, 31, 6, 33, 4, 35, 2, 28, 26, 11, 20, 17, 22, 15, 24, 13],
                         PAYOUT: wager,
                         WAGER: wager
                     }
