@@ -30,7 +30,7 @@ function simulate(){
     let odds = payoutOddsBox.value;
     let runningTotal = 0;
     console.log(prob)
-    // Testing for empty from https://stackoverflow.com/questions/6752714/if-input-value-is-blank-assign-a-value-of-empty-with-javascript
+    // Testing for empty value from https://stackoverflow.com/questions/6752714/if-input-value-is-blank-assign-a-value-of-empty-with-javascript
     if (prob.length == 0 || odds.length ==  0 || prob < 0 || prob > 1 || odds < 0){
         messageBox.innerText = "Fill out a valid win probability and payout odds";
         return;
@@ -60,6 +60,7 @@ function simulate(){
             win = false;
         }
         runningTotal += payout
+        // Collates all the relevant data into a row of comma separated values
         csvRows.push([i+1, wager, roll, win, payout, runningTotal].join(","))
         if ((maxgain.length != 0 && runningTotal > maxgain)||(maxloss.length != 0 && runningTotal < maxloss)){
             break;
@@ -76,10 +77,10 @@ function simulate(){
     output = csvRows.join("\n")
     // All from same geeksforgeeks article
     const blob = new Blob([output], { type: 'text/csv' }); 
-    const url = window.URL.createObjectURL(blob) 
-    const a = document.createElement('a') 
-    a.setAttribute('href', url) 
+    const url = window.URL.createObjectURL(blob); 
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
     a.setAttribute('download', 'simulation.csv'); 
-    a.click() 
-    messageBox.innerText = "Fill out the fields below, then click simulate to get a csv simulation of the game"
+    a.click();
+    messageBox.innerText = "Fill out the fields below, then click simulate to get a csv simulation of the game";
 }
